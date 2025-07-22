@@ -61,7 +61,6 @@ spec:
       port: 80
       targetPort: 80
 ---
-# Optional: Only if you need to define GatewayClass manually
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
