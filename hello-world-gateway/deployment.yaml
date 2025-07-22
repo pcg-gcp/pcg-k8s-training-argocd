@@ -41,7 +41,7 @@ data:
     <html>
       <head><title>Hello from Traefik</title></head>
       <body>
-        <h1>Hello World!</h1>
+        <h1>Hello Gateway!</h1>
         <p>If you see this, deployment succeeded.</p>
       </body>
     </html>

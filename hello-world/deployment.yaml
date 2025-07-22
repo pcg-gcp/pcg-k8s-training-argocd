@@ -41,7 +41,7 @@ data:
     <html>
       <head><title>Hello from NGINX</title></head>
       <body>
-        <h1>Hello World!</h1>
+        <h1>Hello Ingress!</h1>
         <p>If you see this, deployment succeeded.</p>
       </body>
     </html>
