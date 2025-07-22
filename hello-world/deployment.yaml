@@ -68,7 +68,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: hello-world-ingress
+  ingressClassName: nginx
   rules:
     - host: hello-world.local
       http:
