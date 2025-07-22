@@ -4,28 +4,36 @@ This is a simple "Hello World" application to be deployed on Kubernetes.
 
 ## Deployment with Argo CD
 
-To deploy this application using Argo CD, you can use the following `deployment.yaml` file:
+The Deployment consist of all necessary resources to deploy a nginx pod that returns 'Hello World', if set up correctly.
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-world
+  name: nginx
+  namespace: hello-world
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-world
+      app: nginx
   template:
     metadata:
       labels:
-        app: hello-world
+        app: nginx
     spec:
       containers:
-      - name: hello-world
-        image: gcr.io/google-samples/hello-app:1.0
-        ports:
-        - containerPort: 8080
+        - name: nginx
+          image: nginx:stable-alpine
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: html
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: html
+          configMap:
+            name: nginx-html
 ```
 
 ### Create the Argo CD Application
