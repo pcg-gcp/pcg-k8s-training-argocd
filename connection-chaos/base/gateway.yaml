@@ -3,7 +3,7 @@ kind: Gateway
 metadata:
   name: workshop-gateway
 spec:
-  gatewayClassName: nginx # or whichever GatewayClass Minikube provides
+  gatewayClassName: traefik
   listeners:
     - name: http
       protocol: HTTP
