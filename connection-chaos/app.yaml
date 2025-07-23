@@ -7,7 +7,7 @@ spec:
   source:
     repoURL: https://github.com/pcg-gcp/pcg-k8s-training-argocd
     targetRevision: HEAD
-    path: connection-chaos
+    path: connection-chaos/base
   destination:
     server: https://kubernetes.default.svc
     namespace: default
