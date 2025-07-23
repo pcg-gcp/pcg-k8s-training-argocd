@@ -1,4 +1,14 @@
 apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret
+type: Opaque
+data:
+  postgres-user: YXBwdXNlcg==                 # base64 for "appuser"
+  postgres-password: cGFzc3dvcmQ=             # base64 for "password"
+  postgres-db: YXBwZGI=                       # base64 for "appdb"
+---
+apiVersion: v1
 kind: ConfigMap
 metadata:
   name: db-init-script
@@ -24,13 +34,27 @@ spec:
           image: postgres:16
           env:
             - name: PGPASSWORD
-              value: password
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: postgres-password
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: postgres-user
+            - name: PGDATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: postgres-db
           volumeMounts:
             - name: init-script
               mountPath: /docker-entrypoint-initdb.d
           command: ["sh", "-c"]
           args:
-            - psql -h db -U appuser -d appdb -f /docker-entrypoint-initdb.d/init.sql
+            - >
+              psql -h db -U "$PGUSER" -d "$PGDATABASE" -f /docker-entrypoint-initdb.d/init.sql
       volumes:
         - name: init-script
           configMap:
@@ -56,11 +80,20 @@ spec:
           image: postgres:16
           env:
             - name: POSTGRES_DB
-              value: appdb
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: postgres-db
             - name: POSTGRES_USER
-              value: appuser
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: postgres-user
             - name: POSTGRES_PASSWORD
-              value: password
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: postgres-password
           ports:
             - containerPort: 5432
 ---
