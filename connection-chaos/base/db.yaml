@@ -89,6 +89,5 @@ spec:
           env:
             - name: PGPASSWORD
               value: password
-          command: ['sh', '-c', 'psql -h db -U appuser -d appdb -c "CREATE TABLE IF NOT EXISTS message (text VARCHAR(100)); INSERT INTO message (text) VALUES (\'You fixed it\') ON CONFLICT DO NOTHING;"']
       restartPolicy: OnFailure
 
