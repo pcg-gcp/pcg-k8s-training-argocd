@@ -97,19 +97,5 @@ spec:
   selector:
     app: db
   clusterIP: None
----
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: db-seed
-spec:
-  template:
-    spec:
-      containers:
-        - name: seed
-          image: postgres:16
-          env:
-            - name: PGPASSWORD
-              value: password
-      restartPolicy: OnFailure
+
 
