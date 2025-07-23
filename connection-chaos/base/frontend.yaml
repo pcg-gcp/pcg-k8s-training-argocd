@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ghcr.io/sampleorg/frontend-demo:latest # Replace with actual working sample image
+          image: europe-west1-docker.pkg.dev/cw-academy-sandbox-alex/k8s-image/frontend-service:latest
           env:
             - name: DB_HOST
               value: db
