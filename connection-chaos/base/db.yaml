@@ -85,6 +85,21 @@ spec:
                   key: postgres-password
           ports:
             - containerPort: 5432
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - appuser
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - appuser
 ---
 apiVersion: v1
 kind: Service
